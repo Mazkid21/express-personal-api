@@ -12,7 +12,7 @@ app.use(bodyParser.json());
  * DATABASE *
  ************/
 
-// var db = require('./models');
+ var db = require('./models');
 
 /**********
  * ROUTES *
@@ -21,6 +21,17 @@ app.use(bodyParser.json());
 // Serve static files from the `/public` directory:
 // i.e. `/images`, `/scripts`, `/styles`
 app.use(express.static('public'));
+
+app.get('/api/profile', function (req, res) {
+  db.Profile.find()
+
+    .exec(function(err, profiles){
+    if (err) {return console.log("index error: " + err);}
+    res.json(profiles);
+  });
+});
+
+
 
 /*
  * HTML Endpoints
@@ -40,14 +51,22 @@ app.get('/api', function api_index(req, res) {
   res.json({
     woops_i_has_forgot_to_document_all_my_endpoints: true, // CHANGE ME ;)
     message: "Welcome to my personal api! Here's what you need to know!",
-    documentation_url: "https://github.com/example-username/express_self_api/README.md", // CHANGE ME
-    base_url: "http://YOUR-APP-NAME.herokuapp.com", // CHANGE ME
+    documentation_url: "https://github.com/mazkid21/express_self_api/README.md", // CHANGE ME
+    base_url: "http://shrouded-wave-26383.herokuapp.com", // CHANGE ME
     endpoints: [
       {method: "GET", path: "/api", description: "Describes all available endpoints"},
-      {method: "GET", path: "/api/profile", description: "Data about me"}, // CHANGE ME
+      {method: "GET", path: "/api/profile", description: "Profile with my personal api data"}, 
       {method: "POST", path: "/api/campsites", description: "E.g. Create a new campsite"} // CHANGE ME
     ]
-  })
+
+  });
+});
+
+app.get('/api/profile', function index(req, res) {
+  db.Profile.find(function(err, profiles){
+    if (err) {return console.log("index error: " + err);}
+    res.json(profiles);
+  });
 });
 
 /**********
