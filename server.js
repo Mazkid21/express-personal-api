@@ -57,7 +57,8 @@ app.get('/api', function api_index(req, res) {
       {method: "GET", path: "/api", description: "Describes all available endpoints"},
       {method: "GET", path: "/api/profile", description: "Profile with my personal api data"}, 
       {method: "POST", path: "/api/mountain", description: "mountians ive hikd"}, // CHANGE ME
-      {method: "GET", path: "/api/mountain/:name", description: "Profile with my personal api data"}
+      {method: "GET", path: "/api/mountain/", description: "get all mountains"},
+      {method: "GET", path: "/api/mountain/:name", description: "get mountians by name"}
     ]
 
   });
@@ -89,6 +90,14 @@ app.post('/api/mountain', function(req, res){
     res.json(mountains);
   });
 
+});
+
+app.get('/api/mountain', function index(req, res) {
+  db.Mountain.find()
+  .exec(function(err, mountains){
+    if (err) {return console.log("index error: " + err);}
+    res.json(mountains);
+  });
 });
 
 // get mountian by name 
