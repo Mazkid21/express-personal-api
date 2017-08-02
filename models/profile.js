@@ -18,16 +18,13 @@ var ProfileSchema = new Schema({
 	github_link: String,
 	github_profile_image: String,
 	current_city: String,
-	pet: [
-	{
-		name: String,
-		type: String,
-		breed: String
-	}
-		]
+	
+		
 	
 
 });
+
+console.log(ProfileSchema);
 
 var Profile = mongoose.model('Profile', ProfileSchema);
 

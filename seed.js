@@ -22,29 +22,56 @@ var new_profile = [
 		github_link: "https://github.com/Mazkid21",
 		github_profile_image: "https://avatars0.githubusercontent.com/u/29286464?v=4&s=460",
 		current_city: "Denver",
-		pet: [
-		{name: "maya",
-		type: "dog",
-		breed: "pit-bull"},
-		{
-		name: "yogi",
-		type: "dog",
-		breed: "golden"
+		
 	}
 
-		]
+];
+
+var new_mountain = [
+	{
+		name: "Hayden",
+		height: "13,561 ft",
+		climbed: "true", 
+		Skiied: "true"
+	},
+	{
+		name: "Pyramid",
+		height: "14,018 ft",
+		climbed: "true", 
+		Skiied: "false"
+	},
+	{
+		name: "Sopris",
+		height: "12,965 ft",
+		climbed: "true", 
+		Skiied: "true"
 	}
+
 
 ];
 
 
 
-db.Profile.create(new_profile, function(err, profile){
-	if (err){
-		return console.log("Error:", err);
-	}
-	console.log("Created new profile", profile._id);
-	process.exit();
 
+db.Profile.remove({}, function(err, profiles){
+	console.log("Removed all profiles, YAY");
+	db.Profile.create(new_profile, function(err, profiles){
+		if(err){
+			return console.log("Error: " + err);
+		}
+		console.log("created the profile: " + profiles);
+	});
 });
+
+
+db.Mountain.remove({}, function(err, mountains){
+	console.log("Removed all mountains, YAY");
+	db.Mountain.create(new_mountain, function(err, mountains){
+		if(err){
+			return console.log("Error: " + err);
+		}
+		console.log("created the Mountain: " + mountains);
+	});
+});
+
 
